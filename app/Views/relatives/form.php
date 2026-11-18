@@ -33,7 +33,8 @@ $remark = $view->old('remark', $current['remark'] ?? '');
                     <option value="father"<?= $view->selected($familySide, 'father') ?>>父方</option>
                     <option value="mother"<?= $view->selected($familySide, 'mother') ?>>母方</option>
                     <option value="spouse"<?= $view->selected($familySide, 'spouse') ?>>配偶方</option>
-                    <option value="other"<?= $view->selected($familySide, 'other') ?>>其他</option>
+					<option value="brother"<?= $view->selected($familySide, 'brother') ?>>兄弟姐妹</option>
+                    <option value="other"<?= $view->selected($familySide, 'other') ?>>朋友</option>
                 </select>
             </div>
             <div class="col-12 col-md-4">

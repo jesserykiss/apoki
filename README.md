@@ -2,7 +2,7 @@
 
 礼金往来记录网站。使用 PHP 8.1+ 原生代码、PDO/MySQL 8、服务端渲染和 Bootstrap 5 CDN 构建。
 
-## 部署到 BYET
+# 部署到 BYET
 
 1. 在 VistaPanel 中创建 MySQL 数据库和数据库用户，并授予该数据库全部权限。
 2. 编辑实际使用的 `config/config.php`，将 BYET 的数据库信息写入其中。`config/config.example.php` 只是配置模板；如果部署目录中还没有 `config.php`，才复制并重命名示例文件。

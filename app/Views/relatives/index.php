@@ -16,7 +16,8 @@
                 <option value="father"<?= $view->selected($filters['family_side'] ?? '', 'father') ?>>父方</option>
                 <option value="mother"<?= $view->selected($filters['family_side'] ?? '', 'mother') ?>>母方</option>
                 <option value="spouse"<?= $view->selected($filters['family_side'] ?? '', 'spouse') ?>>配偶方</option>
-                <option value="other"<?= $view->selected($filters['family_side'] ?? '', 'other') ?>>其他</option>
+				<option value="brother"<?= $view->selected($filters['family_side'] ?? '', 'brother') ?>>兄弟姐妹</option>
+                <option value="other"<?= $view->selected($filters['family_side'] ?? '', 'other') ?>>朋友</option>
             </select>
         </div>
         <div class="col-6 col-md-2">

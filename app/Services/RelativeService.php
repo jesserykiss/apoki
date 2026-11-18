@@ -77,7 +77,7 @@ final class RelativeService
         $errors = Validator::validate($data, [
             'name' => ['required', 'max:50'],
             'relation' => ['required', 'max:30'],
-            'family_side' => ['required', 'in:father,mother,spouse,other'],
+            'family_side' => ['required', 'in:father,mother,spouse,brother,other'],
             'category' => ['required', 'in:elder,peer,younger,other'],
             'gender' => ['required', 'in:male,female,unknown'],
             'phone' => ['max:30'],

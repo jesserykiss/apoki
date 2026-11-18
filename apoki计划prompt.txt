@@ -1,0 +1,16 @@
+# 项目 礼金往来记录网站。记录我与亲戚间宴请礼金双向流水（亲戚办→我送礼；我办→亲戚送礼）。多用户注册，数据按 user_id 完全隔离。  
+# 技术栈（固定） PHP 8.1+ 原生（无框架）+ PDO/MySQL 8 + 服务端渲染（Bootstrap 5 CDN，无构建工具）。
+轻量 MVC（Controller/Service/DAO/View），单入口 index.php 路由。password_hash(bcrypt)。本地 Apache/Nginx。  
+# 表结构（以此为准） users(id,username,password_hash,nickname,phone,email,status,timestamps) 
+relatives(id,user_id,name,relation,family_side,category,gender,phone,remark,is_deleted,timestamps) 
+banquet_types(id,code,name,sort,is_system,user_id) 预置:结婚/生子/满月周岁/乔迁/升学/其他 
+banquets(id,user_id,type_id,host_type[1自己办/2亲戚办],host_relative_id,title,banquet_date,location,remark,is_deleted,timestamps) 
+gift_records(id,user_id,banquet_id,relative_id,direction[1收/2送],amount DECIMAL(10,2),gift_type[1现金/2转账/3礼品],gift_desc,gift_date,remark,is_deleted,timestamps) 
+规则：所有查询带 user_id；软删除 is_deleted；金额用字符串/BCMath 避免浮点。  
+# MVP 范围 1 注册/登录/退出/改密；2 亲戚增删改查+筛选；3 宴请增删改查（区分自己办/亲戚办）；4 礼金明细增删改（收/送、金额、类型、日期、备注）；
+5 查询统计：按亲戚看流水净额、按类型/时间区间查、首页看板（总收/总支/净额/Top亲戚）；6 安全：CSRF、session、预处理防注入、密码不回显。  
+# 不做 短信/邮箱验证、三方登录、附件、导出、回礼提醒、多账本、家庭合并、自定义类型、日志、API。  
+# 输出（Markdown，按序） 1 项目目录结构与文件职责 2 实施阶段拆分（5～7 个，每阶段：目标/涉及文件/可验证完成标准，结束时可运行） 
+3 建表要点：建表顺序、索引/外键策略、字典初始化，及对上表的调整建议（标注理由） 
+4 核心业务规则清单：收送方向与 host_type 一致性校验、删除亲戚/宴请时关联礼金处理、字段校验规则、越权防护点 5 路由与页面清单（GET/POST） 
+6 4 条核心 SQL：亲戚净额、按类型汇总、时间区间流水、首页看板 7 待确认项（≤8 条，各给默认建议）  注意：不写实现代码；建表 SQL 只给要点；阶段须可顺序验收；结构调整标注【建议调整】。
