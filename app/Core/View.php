@@ -13,7 +13,7 @@ final class View
         'mother' => '母方',
         'spouse' => '配偶方',
 		'brother' => '兄弟姐妹',
-        'other' => '其他',
+        'other' => '朋友',
     ];
 
     private const CATEGORY_LABELS = [

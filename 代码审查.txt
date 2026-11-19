@@ -1,0 +1,31 @@
+只读诊断模式。只阅读、分析、记录，不修改任何文件，不执行任何写操作。
+
+# 项目
+PHP 8.2 + PDO/MySQL 礼金记录网站，运行于 XAMPP 8.2.12（Windows，Apache + MySQL）。
+Web 根目录：C:/xampp/htdocs/[你的项目名]/public
+当前状态：能跑但发现若干错误，需要系统性审查后再修复。
+
+# 审查范围
+阅读 public/index.php 及它引入的全部文件（app/、config/、public/.htaccess）。
+先输出一份文件清单，标注你认为需要重点审查的文件，然后开始逐文件诊断。
+
+# 必须覆盖的检查项
+1. PDO 使用：是否全部走 prepare/execute？有无字符串拼接 SQL？user_id 隔离是否每个查询都带？
+2. 收/送一致性：gift_records.direction 与 banquets.host_type 是否有一致性校验？
+3. 软删除：is_deleted 是否在所有查询中正确过滤？
+4. 金额处理：DECIMAL 读出来是否被 float 强转？加减是否用了 BCMath 或字符串？
+5. CSRF：是否集中在 BaseController 校验？GET 是否有副作用操作？
+6. 密码：是否 password_hash + password_verify？cost 是否合理？
+7. Session：cookie 参数是否设置了 HttpOnly / SameSite？
+8. PHP 8.2 兼容性：有无已废弃语法（如 ${var} 字符串插值、utf8_encode 等）？
+9. XAMPP 路由：.htaccess 规则是否与 index.php 的路由逻辑匹配？
+
+# 输出格式（每个问题一条，严格按此结构）
+[编号] 文件:行号 | 严重级别(P0/P1/P2) | 问题一句话
+- 现象：具体表现
+- 根因：为什么错
+- 修复方向：改什么（不写完整代码）
+- 验证方式：在 XAMPP 里如何操作能确认修好了
+
+P0 = 直接导致功能不可用或数据错误；P1 = 安全/一致性问题；P2 = 规范/可维护性。
+最后汇总一张表：编号 | 文件 | 级别 | 一句话摘要，按 P0→P1→P2 排序。
